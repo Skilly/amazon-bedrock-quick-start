@@ -78,4 +78,4 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 This library is licensed under the MIT-0 License. See the LICENSE file.
 
 ## Reference
-* (https://notes-mohudu-7acd82487fb8e91b57914ae1bd54f0cad08ac696942a2554fc.gitlab.io/technology-aws-bedrock.adoc)Personal AWS Bedrock notes^]
+* [Personal AWS Bedrock notes^](https://notes-mohudu-7acd82487fb8e91b57914ae1bd54f0cad08ac696942a2554fc.gitlab.io/technology-aws-bedrock.adoc)
