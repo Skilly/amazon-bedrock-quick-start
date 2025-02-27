@@ -5,7 +5,7 @@ description = "A custom LangChain agent dubbed \"Agent AWS\" that queries the AW
 authors = [
     {name = "Michael",email = "michael.scheepers@gmail.com"}
 ]
-license = {text = "Michael Scheepers Proprietary Software License Statement of Intent"}
+license = {text = "MIT No Attribution"}
 readme = "README.md"
 requires-python = ">=3.9,<3.9.7 || >3.9.7,<3.10"
 dependencies = [
