@@ -6,10 +6,10 @@ import io
 from PIL import Image
 
 
-st.title("Building with Bedrock")  # Title of the application
-st.subheader("Image Generation Demo")
+REGION = "us-east-1"
 
-REGION = "us-west-2"
+st.title("Building with Bedrock")  # Title of the application
+st.subheader(f"Image Generation Demo (Region={REGION})")
 
 # List of Stable Diffusion Preset Styles
 sd_presets = [
@@ -34,10 +34,30 @@ sd_presets = [
 ]
 
 # Define bedrock
+bedrock = boto3.client(
+    service_name="bedrock",
+    region_name=REGION,
+)
+
 bedrock_runtime = boto3.client(
     service_name="bedrock-runtime",
     region_name=REGION,
 )
+
+def list_models():
+    """
+    Purpose:
+        List all the models available in Bedrock
+    Args/Requests:
+         None
+    Return:
+        None
+    """
+    response = bedrock.list_foundation_models(byInferenceType='PROVISIONED')
+    for model in response['modelSummaries']:
+        print(model['modelId'])
+
+    return
 
 
 def call_claude_sonet(base64_string):
@@ -64,14 +84,16 @@ def call_claude_sonet(base64_string):
     }
 
     body = json.dumps(prompt_config)
-
+                        
     modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
     accept = "application/json"
     contentType = "application/json"
 
+    print("Before Claude")
     response = bedrock_runtime.invoke_model(
         body=body, modelId=modelId, accept=accept, contentType=contentType
     )
+    print("After Claude")
     response_body = json.loads(response.get("body").read())
 
     results = response_body.get("content")[0].get("text")
@@ -102,13 +124,16 @@ def generate_image_sd(text, style):
 
     body = json.dumps(body)
 
-    modelId = "stability.stable-diffusion-xl"
+
+    modelId = "stability.stable-diffusion-xl-v1"
     accept = "application/json"
     contentType = "application/json"
 
+    print("Before  Diffusion")
     response = bedrock_runtime.invoke_model(
         body=body, modelId=modelId, accept=accept, contentType=contentType
     )
+    print("After  Diffusion")
     response_body = json.loads(response.get("body").read())
 
     results = response_body.get("artifacts")[0].get("base64")
@@ -144,14 +169,15 @@ def generate_image_titan(text):
     }
 
     body = json.dumps(body)
-
     modelId = "amazon.titan-image-generator-v1"
     accept = "application/json"
     contentType = "application/json"
 
+    print("Before  Titan")
     response = bedrock_runtime.invoke_model(
         body=body, modelId=modelId, accept=accept, contentType=contentType
     )
+    print("After  Titan")
     response_body = json.loads(response.get("body").read())
 
     results = response_body.get("images")[0]
@@ -159,6 +185,8 @@ def generate_image_titan(text):
 
 
 model = st.selectbox("Select model", ["Stable Diffusion", "Amazon Titan"])
+
+list_models()
 
 
 if model == "Stable Diffusion":

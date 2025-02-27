@@ -8,7 +8,7 @@ To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 * Python 3.9 or higher
-* pip
+* poetry
 * [Model Access in Amazon Bedrock](https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/modelaccess)
 
 ### Installation
@@ -16,13 +16,13 @@ To get a local copy up and running, follow these simple steps.
 Clone the repo
 
 ```bash
-git clone https://github.com/build-on-aws/amazon-bedrock-quick-start.git
+git clone https://github.com/Skilly/amazon-bedrock-quick-start
 ```
 
 Install required packages
 
 ```bash
-pip install -r requirements.txt
+poetry install
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ This repository contains various code samples demonstrating how to build AI appl
 To generate images using Stable Diffusion, run the following command:
 
 ```bash
-streamlit run sd_sample_st.py
+poetry run streamlit run sd_sample_st.py
 ```
 
 This will launch a Streamlit app where you can enter text prompts to generate corresponding images.
@@ -54,7 +54,7 @@ This script will output results for each of these applications, showcasing the v
 To interact with a chatbot built using Amazon Bedrock, LangChain, and Streamlit, run:
 
 ```bash
-streamlit run chat_bedrock_st.py
+poetry run streamlit run chat_bedrock_st.py
 ```
 
 This launches a Streamlit app where you can have a conversation with the chatbot, witnessing AI-powered conversational capabilities firsthand.
@@ -64,7 +64,7 @@ This launches a Streamlit app where you can have a conversation with the chatbot
 To see how Retrieval Augmented Generation (RAG) works with LangChain, execute:
 
 ```bash
-python rag_example.py
+poetry run python rag_example.py
 ```
 
 This will demonstrate how RAG augments foundation models by retrieving and incorporating external data into the generated content.
@@ -76,3 +76,6 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
+
+## Reference
+* (https://notes-mohudu-7acd82487fb8e91b57914ae1bd54f0cad08ac696942a2554fc.gitlab.io/technology-aws-bedrock.adoc)Personal AWS Bedrock notes^]
