@@ -1,0 +1,22 @@
+[project]
+name = "amazon-bedrock-quick-start"
+version = "0.1.0"
+description = "A custom LangChain agent dubbed \"Agent AWS\" that queries the AWS Well-Architected Framework and deploys Lambda functions, all backed by Amazon Bedrock and housed in a Streamlit chatbot."
+authors = [
+    {name = "Michael",email = "michael.scheepers@gmail.com"}
+]
+license = {text = "Michael Scheepers Proprietary Software License Statement of Intent"}
+readme = "README.md"
+requires-python = ">=3.9,<3.9.7 || >3.9.7,<3.10"
+dependencies = [
+    "boto3 (>=1.37.1,<2.0.0)",
+    "langchain (>=0.3.19,<0.4.0)",
+    "streamlit (>=1.42.2,<2.0.0)",
+    "pillow (>=11.1.0,<12.0.0)",
+    "faiss-cpu (>=1.10.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

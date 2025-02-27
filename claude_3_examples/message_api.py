@@ -5,9 +5,8 @@ import time
 # Setup bedrock
 bedrock_runtime = boto3.client(
     service_name="bedrock-runtime",
-    region_name="us-west-2",
+    region_name="ap-southeast-2",
 )
-
 
 def call_claude_sonet(prompt):
 
