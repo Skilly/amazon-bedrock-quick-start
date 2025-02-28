@@ -4,10 +4,16 @@ import boto3
 from langchain_community.embeddings import BedrockEmbeddings
 from langchain_community.vectorstores import FAISS
 
+# Create a session using the default profile
+session = boto3.session.Session()
+
+# Get the region
+REGION = session.region_name
+
 # Setup bedrock
 bedrock_runtime = boto3.client(
     service_name="bedrock-runtime",
-    region_name="us-east-1",
+    region_name=REGION,
 )
 
 sentences = [
@@ -45,21 +51,30 @@ def call_claude(prompt):
     accept = "application/json"
     contentType = "application/json"
 
+    print("Before Claude")
     response = bedrock_runtime.invoke_model(
         body=body, modelId=modelId, accept=accept, contentType=contentType
     )
+    print("After Claude")
     response_body = json.loads(response.get("body").read())
 
     results = response_body.get("completion")
     return results
 
+MODEL_ID="amazon.titan-embed-text-v1"
 def rag_setup(query):
+    print("Before TITAN")
     embeddings = BedrockEmbeddings(
         client=bedrock_runtime,
-        model_id="amazon.titan-embed-text-v1",
+        model_id=MODEL_ID,
     )
-    local_vector_store = FAISS.from_texts(sentences, embeddings)
-
+    print("After TITAN")
+    try:
+        local_vector_store = FAISS.from_texts(sentences, embeddings)
+    except Exception as e:
+        print(f"{e} ModelId={MODEL_ID}")
+        return "Error"
+    
     docs = local_vector_store.similarity_search(query)
     context = ""
 
@@ -73,6 +88,7 @@ def rag_setup(query):
     Question: {query}
     Answer:"""
 
+    print("About to call Claude")
     return call_claude(prompt)
 
 

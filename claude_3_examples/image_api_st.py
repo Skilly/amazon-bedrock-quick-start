@@ -5,8 +5,11 @@ import base64
 import io
 from PIL import Image
 
+# Create a session using the default profile
+session = boto3.session.Session()
 
-REGION = "us-east-1"
+# Get the region
+REGION = session.region_name
 
 st.title("Building with Bedrock")  # Title of the application
 st.subheader(f"Image Generation Demo (Region={REGION})")

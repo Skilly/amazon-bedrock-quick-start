@@ -2,10 +2,16 @@ import boto3
 import json
 import time
 
+# Create a session using the default profile
+session = boto3.session.Session()
+
+# Get the region
+REGION = session.region_name
+
 # Setup bedrock
 bedrock_runtime = boto3.client(
     service_name="bedrock-runtime",
-    region_name="ap-southeast-2",
+    region_name=REGION,
 )
 
 def call_claude_sonet(prompt):

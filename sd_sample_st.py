@@ -4,8 +4,13 @@ import json
 from PIL import Image
 import io
 
+# Create a session using the default profile
+session = boto3.session.Session()
 
-st.title("Building with Bedrock")  # Title of the application
+# Get the region
+REGION = session.region_name
+
+st.title(f"Building with Bedrock: Region={REGION}")  # Title of the application
 st.subheader("Stable Diffusion Demo")
 
 
@@ -34,7 +39,7 @@ sd_presets = [
 # Setup bedrock
 bedrock_runtime = boto3.client(
     service_name="bedrock-runtime",
-    region_name="us-east-1",
+    region_name=REGION,
 )
 
 # Bedrock api call to stable diffusion
@@ -61,7 +66,8 @@ def generate_image(text, style):
 
     body = json.dumps(body)
 
-    modelId = "stability.stable-diffusion-xl"
+    modelId = "stability.stable-diffusion-xl-v1"
+#    modelId = "stability.stable-diffusion-xl"
     accept = "application/json"
     contentType = "application/json"
 
